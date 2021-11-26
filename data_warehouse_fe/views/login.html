@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Acámica - Data Warehouse Final Project - pancajo</title>
+    <meta name="title" content="Acámica - Data Warehouse Final Project" />
+    <meta name="description" content="Acámica - Data Warehouse Final Project" />
+
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="icon"
+      sizes="32x32"
+      href="../assets/data-storage-svgrepo-com.svg"
+      type="image/svg+xml"
+    />
+    <link rel="stylesheet" href="../styles/normalize.css" />
+    <link rel="stylesheet" href="../styles/login.css" />
+  </head>
+
+  <body>
+    <div class="content_login">
+      <section class="ftco-section">
+        <div class="wrapper fadeInDown">
+          <img class="header_logo" src="../assets/logo.png" />
+          <div id="formContent">
+            <!-- Tabs Titles -->
+            <h2 class="title active">Bienvenido</h2>
+
+            <!-- Icon -->
+            <div class="fadeIn first">
+              <!-- <span style="color: #5e2129"> -->
+              <i class="far fa-user-circle fa-4x"></i>
+              <!-- </span> -->
+            </div>
+
+            <!-- Login Form -->
+            <fieldset>
+              <input
+                type="email"
+                id="login"
+                class="fadeIn second"
+                name="login"
+                placeholder="Usuario"
+              />
+              <input
+                type="password"
+                id="password"
+                class="fadeIn third"
+                name="password"
+                placeholder="Contraseña"
+              />
+              <label class="hidden" id="labelError">
+                Usuario o contraseña incorrectos</label
+              >
+              <input
+                type="submit"
+                id="submit"
+                class="fadeIn fourth"
+                value="Ingresar"
+              />
+            </fieldset>
+
+            <!-- Remind Passowrd -->
+            <div id="formFooter">
+              <a class="underlineHover" href="#">¿Olvidaste tu password?</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script
+      src="https://kit.fontawesome.com/7396023e43.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script type="module" src="../scripts/main_login.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  </body>
+</html>

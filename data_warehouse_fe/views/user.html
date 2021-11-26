@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      sizes="32x32"
+      href="../assets/logo_icon.png"
+      type="image/svg+xml"
+    />
+    <!-- Styles -->
+    <link rel="stylesheet" href="../styles/normalize.css" />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <!-- Font Awesome CSS -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="../styles/styles.css" />
+    <!-- END Styles -->
+    <title>U.S.S. Users - DWA</title>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary py-0">
+      <a class="navbar-brand" href="#">
+        <img
+          class="ml-4"
+          src="../assets/logo.png"
+          width="100"
+          height="100"
+          alt="Data Warehouse Logo"
+          loading="lazy"
+        />
+      </a>
+      <div class="collapse navbar-collapse justify-content-end" id="navBar">
+        <div class="navbar-nav">
+          <a class="nav-link mx-1" href="../index.html">Contactos</a>
+          <a class="nav-link mx-1" href="./companies.html">Compañías</a>
+          <a class="nav-link mx-1 active" href="#" id="navLinkUsers"
+            >Usuarios<span class="sr-only">(current)</span></a
+          >
+          <a class="nav-link mx-1" href="./region_city.html">Región / Ciudad</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="main mx-4">
+      <section>
+        <h1 class="title mt-5 mb-3">Usuarios</h1>
+
+        <!-- Search Bar  -->
+
+        <div class="d-flex flex-row justify-content-between">
+          <div class="d-flex flex-row hiddenControl">
+            <div class="input-group filter mr-2">
+              <input
+                type="text"
+                class="form-control"
+                aria-label="Text input with dropdown button"
+              />
+            </div>
+
+            <!-- Button Search -->
+
+            <button type="button" class="btn btn-outline-secondary btn-search">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <!-- New User Button -->
+
+          <div class="col">
+            <button
+              type="button"
+              class="btn btn-secondary btn-size float-right"
+              data-toggle="modal"
+              data-target="#newUserModal"
+              id="addUserBtnModal"
+            >
+              Agregar Usuarios
+            </button>
+          </div>
+
+          <!-- END New User Button -->
+        </div>
+
+        <!-- END Search Bar and Filters -->
+
+        <!-- ESTO HAY QUE VALIDARLO NO SE ESTÁ USANDO  -->
+
+        <div
+          class="
+            selected-contacts
+            d-flex
+            justify-content-between
+            align-items-center
+            mt-4
+            mb-1
+          "
+        >
+          <button
+            type="button"
+            class="btn btn-xsm btn-tag disable contacts-selected d-none"
+          ></button>
+          <button
+            type="button"
+            class="
+              btn btn-outline-secondary btn-size
+              border-0
+              delete-contacts
+              d-none
+            "
+            data-toggle="modal"
+            data-target="#deleteUserModal"
+          >
+            <i class="fa fa-trash" aria-hidden="true"></i> Eliminar Usuarios
+          </button>
+        </div>
+
+        <!-- Users Grid -->
+
+        <table
+          class="
+            table
+            table-borderless
+            table-bordered
+            table-responsive-lg
+            table-hover
+          "
+        >
+          <thead>
+            <tr class="table-bordered">
+              <th class="align-middle pl-5" scope="col">Nombre(s)</th>
+              <th class="align-middle" scope="col">Apellido(s)</th>
+              <th class="align-middle pl-5" scope="col">Email</th>
+              <th class="align-middle" scope="col">Perfil</th>
+              <th class="align-middle" scope="col">Estado</th>
+              <th class="align-middle" scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody class="users-body-table" id="users-body-table"></tbody>
+        </table>
+
+        <!-- END Users Grid -->
+      </section>
+    </main>
+
+    <!-- Delete Users Modal -->
+
+    <div class="modal fade" id="deleteUserModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+          <div class="modal-body text-center mt-1">
+            <input type="hidden" id="userIDDelete" name="userIDDelete" />
+            <img
+              height="120"
+              width="120"
+              src="../assets/user_not_found.png"
+              alt="Delete logo"
+            />
+            <p class="pt-4">
+              ¿Seguro que deseas eliminar el usuarios seleccionado?
+            </p>
+          </div>
+          <div class="modal-footer border-top-0 justify-content-around">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg modal-button"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger btn-lg modal-button delete"
+              data-dismiss="modal"
+              id="deleteUserBtn"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END Delete Users Modal -->
+
+    <!-- NEW Users Modal -->
+
+    <div class="modal fade" id="newUserModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header bg-secondary new-contact-modal-header">
+            <h1 class="title m-0 text-white">Nuevo Usuario</h1>
+            <button type="button" class="close text-white" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="newUserForm">
+              <div
+                class="
+                  form-group form-row
+                  border
+                  py-4
+                  px-2
+                  borders-new-user-modal
+                  bg-white
+                "
+              >
+                <div class="col- position-relative ml-2 mr-3">
+                  <div class="imgBtnAddPic">
+                    <!--
+                  <img src="../assets/frame_avatar.png" alt="Agregar Imagen" class="imgBtnAddPic__userImg" />  -->
+
+                    <img
+                      src="../assets/frame.png"
+                      alt="User Frame"
+                      class="imgBtnAddPic__frame"
+                    />
+                    <img
+                      src="../assets/avatar_user.png"
+                      alt="User Image"
+                      class="imgBtnAddPic__frame--img"
+                      id="editUserImage"
+                    />
+                  </div>
+                </div>
+                <div class="col">
+                  <label
+                    for="newUserName"
+                    class="col-form-label col-form-label-sm"
+                    >Nombre(s)<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="newUserName"
+                    name="newUserName"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="userLastName"
+                    class="col-form-label col-form-label-sm"
+                    >Apellido<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="userLastName"
+                    name="userLastName"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="userEmail"
+                    class="col-form-label col-form-label-sm"
+                    >Email<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="email"
+                    class="form-control form-control-sm"
+                    id="userEmail"
+                    name="userEmail"
+                    placeholder="chofy@ejemplo.com"
+                    title="Por favor, especifique una dirección de correo válida."
+                    pattern="/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}
+                [a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/"
+                  />
+                </div>
+              </div>
+
+              <div
+                class="
+                  form-group form-row
+                  border
+                  py-4
+                  borders-new-user-modal
+                  bg-white
+                "
+              >
+                <div class="col- position-relative ml-2 mr-3"></div>
+                <div class="col">
+                  <label
+                    for="userProfile"
+                    class="col-form-label col-form-label-sm"
+                    >Perfil del Usuario<span class="text-danger">*</span></label
+                  >
+                  <select
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="userProfile"
+                    name="userProfile"
+                  >
+                    <option selected disabled value="0">
+                      Seleccionar Perfil
+                    </option>
+                    <option value="Admin">Administrador</option>
+                    <option value="Basic">Básico</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label
+                    for="newUserPassword"
+                    class="col-form-label col-form-label-sm"
+                    >Password<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="password"
+                    class="form-control form-control-sm"
+                    id="newUserPassword"
+                    name="newUserPassword"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="newUserPasswordConfirm"
+                    class="col-form-label col-form-label-sm"
+                    >Repetir Password<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="password"
+                    class="form-control form-control-sm"
+                    id="newUserPasswordConfirm"
+                    name="newUserPasswordConfirm"
+                  />
+                </div>
+              </div>
+              <div class="form-group form-row mt-4 mb-0">
+                <label class="col-form-label col-form-label-sm"
+                  ><span class="text-danger">*</span>Información
+                  requerida</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-top-0">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg modal-button border-0"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary btn-lg modal-button create"
+              id="createUserBtn"
+            >
+              Guardar Usuario
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END New Users Modal -->
+
+    <!-- Modify Users Modal -->
+
+    <div class="modal fade" id="editUserModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header bg-secondary new-contact-modal-header">
+            <h1 class="title m-0 text-white">Actualizar Usuario</h1>
+            <button type="button" class="close text-white" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="editContactForm">
+              <div
+                class="
+                  form-group form-row
+                  border
+                  py-4
+                  px-2
+                  borders-new-user-modal
+                  bg-white
+                "
+              >
+                <div class="col- position-relative ml-2 mr-3">
+                  <div class="imgBtnAddPic">
+                    <img
+                      src="../assets/frame.png"
+                      alt="User Frame"
+                      class="imgBtnAddPic__frame"
+                    />
+                    <img
+                      src="../assets/avatar_user.png"
+                      alt="User Image"
+                      class="imgBtnAddPic__frame--img"
+                      id="editUserImage"
+                    />
+                    <input type="hidden" id="userID" name="userID" />
+                  </div>
+                </div>
+                <div class="col">
+                  <label
+                    for="editUserName"
+                    class="col-form-label col-form-label-sm"
+                    >Nombre(s)</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="editUserName"
+                    name="editUserName"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="editUserLastName"
+                    class="col-form-label col-form-label-sm"
+                    >Apellido</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="editUserLastName"
+                    name="editUserLastName"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="editUserEmail"
+                    class="col-form-label col-form-label-sm"
+                    >Email</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control form-control-sm"
+                    id="editUserEmail"
+                    name="editUserEmail"
+                    placeholder="chofy@ejemplo.com"
+                    title="Por favor, especifique una dirección de correo válida."
+                    pattern="/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}
+                [a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/"
+                  />
+                </div>
+              </div>
+
+              <div
+                class="
+                  form-group form-row
+                  border
+                  py-4
+                  borders-new-user-modal
+                  bg-white
+                "
+              >
+                <div class="col- position-relative ml-2 mr-3"></div>
+
+                <div class="col">
+                  <label
+                    for="editUserProfile"
+                    class="col-form-label col-form-label-sm"
+                    >Perfil del Usuario</label
+                  >
+                  <select
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="editUserProfile"
+                    name="editUserProfile"
+                  >
+                    <option selected disabled value="0">
+                      Seleccionar Perfil
+                    </option>
+                    <option value="Admin">Administrador</option>
+                    <option value="Basic">Básico</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label
+                    for="editUserState"
+                    class="col-form-label col-form-label-sm"
+                    >Estado del Usuario</label
+                  >
+                  <select
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="editUserState"
+                    name="editUserState"
+                  >
+                    <option selected disabled value="0">
+                      Seleccionar Estado
+                    </option>
+                    <option value="Enabled">Habilitado</option>
+                    <option value="Disabled">Deshabilitado</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label
+                    for="editUserPassword"
+                    class="col-form-label col-form-label-sm"
+                    >Password</label
+                  >
+                  <input
+                    type="password"
+                    class="form-control form-control-sm"
+                    id="editUserPassword"
+                    name="editUserPassword"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-top-0">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg modal-button border-0"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary btn-lg modal-button update-button"
+              id="editUserBtn"
+            >
+              Actualizar contacto
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END Modify Users Modal -->
+
+    <div class="error-msg"></div>
+
+    <!-- Scripts -->
+
+    <!-- jQuery, Popper and Bootstrap JS -->
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+      integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- END jQuery, Popper and Bootstrap JS -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+    <script
+      src="https://kit.fontawesome.com/7396023e43.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script type="module" src="../scripts/main_controllerUser.js"></script>
+
+    <!-- END Scripts -->
+  </body>
+</html>

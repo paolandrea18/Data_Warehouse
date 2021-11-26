@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      sizes="32x32"
+      href="./assets/logo_icon.png"
+      type="image/svg+xml"
+    />
+    <!-- Styles -->
+    <link rel="stylesheet" href="./styles/normalize.css" />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <!-- Font Awesome CSS -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./styles/styles.css" />
+    <!-- END Scripts -->
+    <title>U.S.S. Contact - DWA</title>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary py-0">
+      <a class="navbar-brand" href="#">
+        <img
+          class="ml-4"
+          src="./assets/logo.png"
+          width="100"
+          height="100"
+          alt="Data Warehouse Logo"
+          loading="lazy"
+        />
+      </a>
+      <div class="collapse navbar-collapse justify-content-end" id="navBar">
+        <div class="navbar-nav">
+          <a class="nav-link mx-1 active" href="#"
+            >Contactos<span class="sr-only">(current)</span></a
+          >
+          <a class="nav-link mx-1" href="./views/companies.html">Compañías</a>
+          <a
+            class="nav-link mx-1 d-none users-tab"
+            href="./views/user.html"
+            id="navLinkUsers"
+            >Usuarios</a
+          >
+          <a class="nav-link mx-1" href="./views/region_city.html"
+            >Región / Ciudad</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <main class="main mx-4">
+      <section>
+        <h1 class="title mt-5 mb-3">Contactos</h1>
+
+        <!-- Search Bar and filter-->
+        <div class="d-flex flex-row justify-content-between">
+          <div class="d-flex flex-row">
+            <div class="input-group filter mr-2">
+              <input
+                type="text"
+                class="form-control filter-input"
+                aria-label="Text input"
+                id="searchBar"
+              />
+            </div>
+
+            <!-- Button Search -->
+
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-search"
+              id="btnSearch"
+            >
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <!-- New Contact Button -->
+
+          <div class="d-flex flex-row justify-content-end">
+            <button
+              type="button"
+              class="btn btn-secondary btn-size"
+              data-toggle="modal"
+              data-target="#newContactModal"
+              id="addContactBtn"
+            >
+              Agregar contacto
+            </button>
+          </div>
+
+          <!-- END New Contact Button -->
+        </div>
+
+        <!-- END Search Bar and Filter -->
+
+        <div
+          class="
+            selected-contacts
+            d-flex
+            justify-content-between
+            align-items-center
+            mt-4
+            mb-1
+          "
+        >
+          <button
+            type="button"
+            class="btn btn-xsm btn-tag disable contacts-selected d-none"
+            id="numberSelectedContacts"
+          ></button>
+          <button
+            type="button"
+            class="
+              btn btn-outline-secondary btn-size
+              border-0
+              delete-contacts
+              d-none
+            "
+            data-toggle="modal"
+            data-target="#deleteManyContactsModal"
+            id="deleteSelectedContactsBtnModal"
+          >
+            <i class="fa fa-trash" aria-hidden="true"></i> Eliminar contactos
+          </button>
+        </div>
+
+        <!-- Contacts Grid -->
+
+        <table
+          class="
+            table
+            table-borderless
+            table-bordered
+            table-responsive-lg
+            table-hover
+          "
+        >
+          <thead>
+            <tr class="table-bordered">
+              <th class="align-middle" scope="col">
+                <input
+                  class="ml-3 all-checkbox"
+                  type="checkbox"
+                  id="checkAllContacts"
+                  name="checkAllContacts"
+                />
+              </th>
+              <th class="align-middle" scope="col">
+                Contacto
+                <button
+                  type="button"
+                  class="btn btn-link asc-sort"
+                  data-field="contactName"
+                  data-direction="ASC"
+                  data-index="0"
+                >
+                  <i class="fa fa-sort" aria-hidden="true"></i></button
+                ><button
+                  type="button"
+                  class="btn btn-link desc-sort d-none"
+                  data-field="contactName"
+                  data-direction="DESC"
+                  data-index="0"
+                >
+                  <i class="fa fa-sort" aria-hidden="true"></i>
+                </button>
+              </th>
+              <th class="align-middle" scope="col">
+                País/Región
+                <button
+                  type="button"
+                  class="btn btn-link asc-sort"
+                  data-field="countryName"
+                  data-direction="ASC"
+                  data-index="1"
+                >
+                  <i class="fa fa-sort" aria-hidden="true"></i></button
+                ><button
+                  type="button"
+                  class="btn btn-link desc-sort d-none"
+                  data-field="countryName"
+                  data-direction="DESC"
+                  data-index="1"
+                >
+                  <i class="fa fa-sort" aria-hidden="true"></i>
+                </button>
+              </th>
+              <th class="align-middle" scope="col">
+                Compañía
+                <button
+                  type="button"
+                  class="btn btn-link asc-sort"
+                  data-field="companyName"
+                  data-direction="ASC"
+                  data-index="2"
+                >
+                  <i class="fa fa-sort" aria-hidden="true"></i></button
+                ><button
+                  type="button"
+                  class="btn btn-link desc-sort d-none"
+                  data-field="companyName"
+                  data-direction="DESC"
+                  data-index="2"
+                >
+                  <i class="fa fa-sort" aria-hidden="true"></i>
+                </button>
+              </th>
+              <th class="align-middle" scope="col">
+                Cargo
+                <button
+                  type="button"
+                  class="btn btn-link asc-sort"
+                  data-field="contactPosition"
+                  data-direction="ASC"
+                  data-index="3"
+                >
+                  <i class="fa fa-sort" aria-hidden="true"></i></button
+                ><button
+                  type="button"
+                  class="btn btn-link desc-sort d-none"
+                  data-field="contactPosition"
+                  data-direction="DESC"
+                  data-index="3"
+                >
+                  <i class="fa fa-sort" aria-hidden="true"></i>
+                </button>
+              </th>
+              <th class="align-middle" scope="col">
+                Interés
+                <button
+                  type="button"
+                  class="btn btn-link asc-sort"
+                  data-field="contactInterest"
+                  data-direction="ASC"
+                  data-index="4"
+                >
+                  <i class="fa fa-sort" aria-hidden="true"></i></button
+                ><button
+                  type="button"
+                  class="btn btn-link desc-sort d-none"
+                  data-field="contactInterest"
+                  data-direction="DESC"
+                  data-index="4"
+                >
+                  <i class="fa fa-sort" aria-hidden="true"></i>
+                </button>
+              </th>
+              <th class="align-middle text-center" scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody class="contactsBodyTable" id="contactsBodyTable"></tbody>
+        </table>
+
+        <!-- END Contacts Grid -->
+      </section>
+    </main>
+
+    <!-- Import Contacts Modal -->
+
+    <div class="modal fade" id="import-contacts-modal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+          <div class="modal-body text-center mt-1">
+            <img src="../assets/import.png" alt="Import logo" />
+            <p class="pt-4">
+              Selecciona el archivo de tu ordenador para importar tus contactos.
+            </p>
+          </div>
+          <div class="modal-footer border-top-0 justify-content-around">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg modal-button"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="button" class="btn btn-secondary btn-lg modal-button">
+              Importar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END Import Contacts Modal-->
+
+    <!-- Delete ONE Contact Modal -->
+
+    <div class="modal fade" id="deleteContactModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+          <div class="modal-body text-center mt-1">
+            <img
+              height="120"
+              width="120"
+              src="./assets/user_not_found.png"
+              alt="Delete logo"
+            />
+            <input type="hidden" id="deleteContactID" name="deleteCompanyID" />
+            <p class="pt-4">¿Seguro que deseas eliminar el contacto?</p>
+          </div>
+          <div class="modal-footer border-top-0 justify-content-around">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg modal-button"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger btn-lg modal-button delete"
+              data-dismiss="modal"
+              id="deleteContactModalBtn"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END ONE Delete Contacts Modal -->
+
+    <!-- Delete MANY Contacts Modal -->
+
+    <div class="modal fade" id="deleteManyContactsModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+          <div class="modal-body text-center mt-1">
+            <img
+              height="120"
+              width="120"
+              src="./assets/user_not_found.png"
+              alt="Delete logo"
+            />
+            <p class="pt-4">
+              ¿Seguro que deseas eliminar los contactos seleccionados?
+            </p>
+          </div>
+          <div class="modal-footer border-top-0 justify-content-around">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg modal-button"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger btn-lg modal-button delete"
+              data-dismiss="modal"
+              id="deleteManyContactsModalBtn"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END Delete MANY Contacts Modal -->
+
+    <!-- NEW Contacts Modal -->
+
+    <div class="modal fade" id="newContactModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header bg-secondary new-contact-modal-header">
+            <h1 class="title m-0 text-white">Nuevo contacto</h1>
+            <button type="button" class="close text-white" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="new-contact-form">
+              <div
+                class="
+                  form-group form-row
+                  border
+                  py-4
+                  px-2
+                  borders-new-user-modal
+                  bg-white
+                "
+              >
+                <div class="col- position-relative ml-2 mr-3">
+                  <button class="imgBtnAddPic">
+                    <img
+                      src="./assets/avatar_add_photo.png"
+                      alt="Agregar Imagen"
+                      class="imgBtnAddPic__userImg"
+                    />
+                  </button>
+                </div>
+                <div class="col">
+                  <label
+                    for="newContactName"
+                    class="col-form-label col-form-label-sm"
+                    >Nombre<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="newContactName"
+                    name="newContactName"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="newContactLastname"
+                    class="col-form-label col-form-label-sm"
+                    >Apellido<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="newContactLastname"
+                    name="newContactLastname"
+                  />
+                </div>
+                <div class="col">
+                  <label for="position" class="col-form-label col-form-label-sm"
+                    >Cargo<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="newContactPosition"
+                    name="position"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="newContactEmail"
+                    class="col-form-label col-form-label-sm"
+                    >Email<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="email"
+                    class="form-control form-control-sm"
+                    id="newContactEmail"
+                    name="newContactEmail"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="newContactCompany"
+                    class="col-form-label col-form-label-sm"
+                    >Compañía<span class="text-danger">*</span></label
+                  >
+                  <select
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="newContactCompany"
+                    name="newContactCompany"
+                  >
+                    <option selected disabled value="0">
+                      Seleccionar compañía
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group form-row">
+                <div class="col">
+                  <label for="region" class="col-form-label col-form-label-sm"
+                    >Region<span class="text-danger">*</span></label
+                  >
+                  <select
+                    class="form-control form-control-sm"
+                    name="region"
+                    id="newContact_regionSelectID"
+                  >
+                    <option selected selected disabled value="0">
+                      Seleccionar región
+                    </option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label
+                    for="newContact_countrySelectID"
+                    class="col-form-label col-form-label-sm"
+                    >País<span class="text-danger">*</span></label
+                  >
+                  <select
+                    class="form-control form-control-sm"
+                    name="newContact_countrySelectID"
+                    id="newContact_countrySelectID"
+                  >
+                    <option selected selected disabled value="0">
+                      Seleccionar país
+                    </option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label
+                    for="newContact_citySelectID"
+                    class="col-form-label col-form-label-sm"
+                    >Ciudad<span class="text-danger">*</span></label
+                  >
+                  <select
+                    class="form-control form-control-sm"
+                    name="newContact_citySelectID"
+                    id="newContact_citySelectID"
+                  >
+                    <option selected selected disabled value="0">
+                      Seleccionar ciudad
+                    </option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label
+                    for="newContactAddress"
+                    class="col-form-label col-form-label-sm"
+                    >Dirección</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="newContactAddress"
+                    name="newContactAddress"
+                    placeholder="Ingresa una dirección"
+                  />
+                </div>
+                <div class="form-group">
+                  <label
+                    for="newContactInterestRange"
+                    class="col-form-label col-form-label-sm"
+                    >Interés</label
+                  >
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="25"
+                    value="0"
+                    list="newContactInterestList"
+                    name="interest-rage"
+                    class="form-control form-control-sm interest-range mx-3 p-0"
+                    id="newContactInterestRange"
+                  />
+                  <datalist id="newContactInterestList">
+                    <option value="25"></option>
+                    <option value="50"></option>
+                    <option value="75"></option>
+                  </datalist>
+                </div>
+                <div class="col-xs">
+                  <label
+                    for="newContactInterest"
+                    class="col-form-label col-form-label-sm text-white"
+                    >Interés</label
+                  >
+                  <select
+                    class="form-control form-control-sm interest-select"
+                    name="newContactInterest"
+                    id="newContactInterest"
+                  >
+                    <option selected value="0">0%</option>
+                    <option value="25">25%</option>
+                    <option value="50">50%</option>
+                    <option value="75">75%</option>
+                    <option value="100">100%</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group form-row contact-channel-info">
+                <div class="col">
+                  <label
+                    for="newContactChannel"
+                    class="col-form-label col-form-label-sm"
+                    >Canal de contacto</label
+                  >
+                  <select
+                    class="form-control form-control-sm"
+                    name="newContactChannel"
+                    id="newContactChannel"
+                  >
+                    <option selected disabled value="Seleccionar canal">
+                      Seleccionar canal
+                    </option>
+                    <option value="Telefono">Telefono</option>
+                    <option value="Email">Email</option>
+                    <option value="WhatsAPP">WhatsAPP</option>
+                    <option value="LinkedIn">LinkedIn</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label
+                    for="newContactAcount"
+                    class="col-form-label col-form-label-sm"
+                    >Cuenta de usuario</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="newContactAcount"
+                    name="newContactAcount"
+                    placeholder="@ejemplo"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="newContactPreferences"
+                    class="col-form-label col-form-label-sm"
+                    >Preferencias</label
+                  >
+                  <select
+                    class="form-control form-control-sm"
+                    name="newContactPreferences"
+                    id="newContactPreferences"
+                  >
+                    <option
+                      selected
+                      disabled
+                      value="Seleccione una preferencia"
+                    >
+                      Seleccione una preferencia
+                    </option>
+                    <option value="Sin preferencia">Sin preferencia</option>
+                    <option value="Canal favorito">Canal favorito</option>
+                    <option value="No molestar">No molestar</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <button
+                    type="button"
+                    class="
+                      btn btn-secondary
+                      text-black
+                      btn-sm
+                      ml-3
+                      buttonTreeAdd
+                      newChanelBtn
+                    "
+                    id="newContactChannelBtn"
+                  >
+                    <i class="fas fa-plus"></i> Agregar Canal
+                  </button>
+                </div>
+              </div>
+              <div id="contentNewChanel"></div>
+
+              <div class="form-group form-row mt-4 mb-0">
+                <label class="col-form-label col-form-label-sm"
+                  ><span class="text-danger">*</span>Información
+                  requerida</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-top-0">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg modal-button border-0"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary btn-lg modal-button create"
+              id="saveContactModalBtn"
+            >
+              Guardar contacto
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END New Contacts Modal -->
+
+    <!-- Modify Contacts Modal -->
+
+    <div class="modal fade" id="editContactModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header bg-secondary new-contact-modal-header">
+            <h1 class="title m-0 text-white">Actualizar contacto</h1>
+            <button type="button" class="close text-white" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="editContactForm">
+              <div
+                class="
+                  form-group form-row
+                  border
+                  py-4
+                  px-2
+                  borders-new-user-modal
+                  bg-white
+                "
+              >
+                <div class="col- position-relative ml-2 mr-3">
+                  <button class="imgBtnAddPic">
+                    <img
+                      src="./assets/circle_avatar.png"
+                      alt="User Frame"
+                      class="imgBtnAddPic__frame"
+                    />
+                    <img
+                      src="./assets/avatar_user.png"
+                      alt="User Image"
+                      class="imgBtnAddPic__frame--img"
+                    />
+                  </button>
+                </div>
+                <div class="col">
+                  <label
+                    for="editContactName"
+                    class="col-form-label col-form-label-sm"
+                    >Nombre<span class="text-danger">*</span></label
+                  >
+                  <input type="hidden" id="editContactID" />
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="editContactName"
+                    name="editContactName"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="editContactLastName"
+                    class="col-form-label col-form-label-sm"
+                    >Apellido<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="editContactLastName"
+                    name="editContactLastName"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="editContactPosition"
+                    class="col-form-label col-form-label-sm"
+                    >Cargo<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="editContactPosition"
+                    name="editContactPosition"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="editContactEmail"
+                    class="col-form-label col-form-label-sm"
+                    >Email<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="email"
+                    class="form-control form-control-sm"
+                    id="editContactEmail"
+                    name="editContactEmail"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="editContactCompany"
+                    class="col-form-label col-form-label-sm"
+                    >Compañía<span class="text-danger">*</span></label
+                  >
+                  <select
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="editContactCompany"
+                    name="editContactCompany"
+                  >
+                    <option selected disabled>Seleccionar compañía</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group form-row">
+                <div class="col">
+                  <label
+                    for="editContact_regionSelectID"
+                    class="col-form-label col-form-label-sm"
+                    >Región<span class="text-danger">*</span></label
+                  >
+                  <select
+                    class="form-control form-control-sm"
+                    name="editContact_regionSelectID"
+                    id="editContact_regionSelectID"
+                  >
+                    <option selected>Seleccionar región</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label
+                    for="editContact_countrySelectID"
+                    class="col-form-label col-form-label-sm"
+                    >País<span class="text-danger">*</span></label
+                  >
+                  <select
+                    class="form-control form-control-sm"
+                    name="editContact_countrySelectID"
+                    id="editContact_countrySelectID"
+                  >
+                    <option selected disabled>Seleccionar país</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label
+                    for="editContact_citySelectID"
+                    class="col-form-label col-form-label-sm"
+                    >Ciudad<span class="text-danger">*</span></label
+                  >
+                  <select
+                    class="form-control form-control-sm"
+                    name="editContact_citySelectID"
+                    id="editContact_citySelectID"
+                  >
+                    <option selected disabled>Seleccionar ciudad</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label
+                    for="editContactAddress"
+                    class="col-form-label col-form-label-sm"
+                    >Direccion</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="editContactAddress"
+                    name="editContactAddress"
+                    placeholder="Ingresa una dirección"
+                  />
+                </div>
+                <div class="form-group">
+                  <label
+                    for="editContactInterestRange"
+                    class="col-form-label col-form-label-sm"
+                    >Interés</label
+                  >
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="25"
+                    value="0"
+                    list="editContactInterestList"
+                    name="editInterestRage"
+                    class="form-control form-control-sm interest-range mx-3 p-0"
+                    id="editContactInterestRange"
+                  />
+                  <datalist id="editContactInterestList">
+                    <option value="25"></option>
+                    <option value="50"></option>
+                    <option value="75"></option>
+                  </datalist>
+                </div>
+                <div class="col-xs">
+                  <label
+                    for="editContactInterestSelect"
+                    class="col-form-label col-form-label-sm text-white"
+                    >Interés</label
+                  >
+                  <select
+                    class="form-control form-control-sm interest-select"
+                    name="editContactInterestSelect"
+                    id="editContactInterestSelect"
+                  >
+                    <option selected value="0">0%</option>
+                    <option value="25">25%</option>
+                    <option value="50">50%</option>
+                    <option value="75">75%</option>
+                    <option value="100">100%</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group form-row contact-channel-info">
+                <div class="col">
+                  <label
+                    for="editContactChannel"
+                    class="col-form-label col-form-label-sm"
+                    >Canal de contacto</label
+                  >
+                  <select
+                    class="form-control form-control-sm"
+                    name="editContactChannel"
+                    id="editContactChannel"
+                  >
+                    <option selected>Seleccionar canal</option>
+                    <option value="Telefono">Teléfono</option>
+                    <option value="Email">Email</option>
+                    <option value="WhatsAPP">WhatsAPP</option>
+                    <option value="LinkedIn">LinkedIn</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label
+                    for="editContactAcount"
+                    class="col-form-label col-form-label-sm"
+                    >Cuenta de usuario</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="editContactAcount"
+                    name="editContactAcount"
+                    placeholder="@ejemplo"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="editContactPreferences"
+                    class="col-form-label col-form-label-sm"
+                    >Preferencias</label
+                  >
+                  <select
+                    class="form-control form-control-sm"
+                    name="editContactPreferences"
+                    id="editContactPreferences"
+                  >
+                    <option
+                      selected
+                      disabled
+                      value="Seleccione una preferencia"
+                    >
+                      Seleccione una preferencia
+                    </option>
+                    <option value="Sin preferencia">Sin preferencia</option>
+                    <option value="Canal favorito">Canal favorito</option>
+                    <option value="No molestar">No molestar</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <button
+                    type="button"
+                    class="
+                      btn btn-secondary
+                      text-black
+                      btn-sm
+                      ml-3
+                      buttonTreeAdd
+                      newChanelBtn
+                    "
+                    id="editContactNewChannelBtn"
+                  >
+                    <i class="fas fa-plus"></i> Agregar Canal
+                  </button>
+                </div>
+              </div>
+              <div id="contentEditChanel"></div>
+              <div class="form-group form-row mt-4 mb-0">
+                <label class="col-form-label col-form-label-sm"
+                  ><span class="text-danger">*</span>Información
+                  requerida</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-top-0">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg modal-button border-0"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary btn-lg modal-button update-button"
+              id="editContactModalBtn"
+            >
+              Actualizar contacto
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END Modify Contacts Modal -->
+
+    <div class="error-msg"></div>
+
+    <!-- Scripts -->
+
+    <!-- jQuery, Popper and Bootstrap JS -->
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+      integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- END jQuery, Popper and Bootstrap JS -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+    <script
+      src="https://kit.fontawesome.com/7396023e43.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script type="module" src="./scripts/main_controllerContact.js"></script>
+
+    <!-- END Scripts -->
+  </body>
+</html>

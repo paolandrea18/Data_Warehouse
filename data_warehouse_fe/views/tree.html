@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      sizes="32x32"
+      href="../assets/logo_icon.png"
+      type="image/svg+xml"
+    />
+    <!-- Styles -->
+    <link rel="stylesheet" href="../styles/normalize.css" />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <!-- Font Awesome CSS -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../styles/styles.css" />
+
+    <title>DWA Project U.S.S. - Umbrella CO pancajo</title>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary py-0">
+      <a class="navbar-brand" href="#">
+        <img
+          class="ml-4"
+          src="../assets/logo.png"
+          width="100"
+          height="100"
+          alt="Data Warehouse Logo"
+          loading="lazy"
+        />
+      </a>
+      <div class="collapse navbar-collapse justify-content-end" id="navBar">
+        <div class="navbar-nav">
+          <a class="nav-link mx-1" href="../index.html">Contactos</a>
+          <a class="nav-link mx-1" href="./companies.html">Compañías</a>
+          <a class="nav-link mx-1 d-none users-tab" href="./user.html"
+            >Usuarios</a
+          >
+          <a class="nav-link mx-1 active" href="#"
+            >Región / Ciudad<span class="sr-only">(current)</span></a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <main class="main mx-4">
+      <section>
+        <h1 class="title mt-5 mb-3">Región / País / Ciudad</h1>
+
+        <!-- Search Bar -->
+        <div class="d-flex flex-row justify-content-between">
+          <div class="d-flex flex-row">
+            <div class="input-group filter mr-2">
+              <input
+                type="text"
+                class="form-control"
+                aria-label="Text input with dropdown button"
+              />
+            </div>
+            <!-- Button Search -->
+            <button type="button" class="btn btn-outline-secondary btn-search">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </div>
+          <!-- New Button -->
+          <div class="d-flex flex-row justify-content-end">
+            <button
+              type="button"
+              class="btn btn-secondary btn-size"
+              data-toggle="modal"
+              data-target="#newRegionModal"
+            >
+              Agregar Región
+            </button>
+          </div>
+          <!-- END New Button -->
+        </div>
+
+        <!-- END Search -->
+
+        <div
+          class="
+            selected-contacts
+            d-flex
+            justify-content-between
+            align-items-center
+            mt-4
+            mb-1
+          "
+        >
+          <button
+            type="button"
+            class="btn btn-xsm btn-tag disable contacts-selected d-none"
+          ></button>
+          <button
+            type="button"
+            class="
+              btn btn-outline-secondary btn-size
+              border-0
+              delete-contacts
+              d-none
+            "
+            data-toggle="modal"
+            data-target="#deleteUserModal"
+          >
+            <i class="fa fa-trash" aria-hidden="true"></i> Eliminar Región
+          </button>
+        </div>
+
+        <!-- Regions Tree -->
+
+        <div>
+          <div>
+            <ul id="myUL">
+              <li class="list-group-item">
+                <span class="caret treeFont">${regionName}</span>
+                <button type="button" class="btn text-black-50 ellipsis">
+                  <i class="fa fa-ellipsis-h treeColor" aria-hidden="true"></i>
+                </button>
+                <button
+                  type="button"
+                  class="d-none btn btn-lg text-black-50 edit"
+                  data-info="regions"
+                  data-id="${regionID}"
+                  data-toggle="modal"
+                  data-target="#editRegionModal"
+                >
+                  <i class="fa fa-pencil treeColor" aria-hidden="true"></i>
+                </button>
+                <button
+                  type="button"
+                  class="d-none btn btn-lg text-black-50 delete"
+                  data-info="regions"
+                  data-id="${regionID}"
+                  data-target="#deleteRegionModal"
+                >
+                  <i class="fa fa-trash treeColor" aria-hidden="true"></i>
+                </button>
+                <button
+                  type="button"
+                  class="
+                    d-none
+                    btn btn-secondary
+                    text-black
+                    btn-sm
+                    ml-3
+                    buttonTreeAdd
+                    new
+                  "
+                  data-info="countries"
+                  data-id="${regionID}"
+                  data-toggle="modal"
+                  data-target="#newCountryModal"
+                >
+                  Añadir país
+                </button>
+                <ul
+                  class="
+                    nested
+                    pl-5
+                    list-group list-group-flush
+                    treeFont
+                    countries-Body
+                  "
+                >
+                  ${htmlCountry}
+                  <li class="list-group-item">
+                    <span class="caret treeFont">${countryName}</span>
+                    <button type="button" class="btn text-black-50 ellipsis">
+                      <i
+                        class="fa fa-ellipsis-h treeColor"
+                        aria-hidden="true"
+                      ></i>
+                    </button>
+                    <button
+                      type="button"
+                      class="d-none btn btn-lg text-black-50 edit"
+                      data-info="countries"
+                      data-id="${countryID}"
+                      data-toggle="modal"
+                      data-target="#editCountryModal"
+                    >
+                      <i class="fa fa-pencil treeColor" aria-hidden="true"></i>
+                    </button>
+                    <button
+                      type="button"
+                      class="d-none btn btn-lg text-black-50 delete"
+                      data-info="countries"
+                      data-id="${countryID}"
+                      data-target="#deleteCountryModal"
+                    >
+                      <i class="fa fa-trash treeColor" aria-hidden="true"></i>
+                    </button>
+                    <button
+                      type="button"
+                      class="
+                        d-none
+                        btn btn-secondary
+                        text-black
+                        btn-sm
+                        ml-3
+                        buttonTreeAdd
+                        new
+                      "
+                      data-info="cities"
+                      data-id="${countryID}"
+                      data-toggle="modal"
+                      data-target="#newCityModal"
+                    >
+                      Añadir ciudad
+                    </button>
+                    <ul
+                      class="
+                        nested
+                        pl-5
+                        list-group list-group-flush
+                        treeFont
+                        cities-Body
+                      "
+                    >
+                      ${htmlCity}
+                      <li class="list-group-item treeFont">
+                        ${cityName}
+                        <button
+                          type="button"
+                          class="btn text-black-50 ellipsis"
+                        >
+                          <i
+                            class="fa fa-ellipsis-h treeColor"
+                            aria-hidden="true"
+                          ></i>
+                        </button>
+                        <button
+                          type="button"
+                          class="d-none btn btn-lg text-black-50 edit"
+                          data-info="cities"
+                          data-id="${cityID}"
+                          data-toggle="modal"
+                          data-target="#editCityModal"
+                        >
+                          <i
+                            class="fa fa-pencil treeColor"
+                            aria-hidden="true"
+                          ></i>
+                        </button>
+                        <button
+                          type="button"
+                          class="d-none btn btn-lg text-black-50 delete"
+                          data-info="cities"
+                          data-id="${cityID}"
+                          data-target="#deleteCityModal"
+                        >
+                          <i
+                            class="fa fa-trash treeColor"
+                            aria-hidden="true"
+                          ></i>
+                        </button>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- END Regions Tree -->
+      </section>
+    </main>
+
+    <!-- Delete Regions Modal -->
+
+    <div class="modal fade" id="deleteRegionModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+          <div class="modal-body text-center mt-1">
+            <img src="../assets/delete_region.png" alt="Delete Region" />
+            <p class="pt-4">
+              ¿Seguro que deseas eliminar la región seleccionada?
+            </p>
+          </div>
+          <div class="modal-footer border-top-0 justify-content-around">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg modal-button"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger btn-lg modal-button delete"
+              data-dismiss="modal"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END Delete Regions Modal -->
+
+    <!-- Delete Country Modal -->
+
+    <div class="modal fade" id="deleteCountryModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+          <div class="modal-body text-center mt-1">
+            <img src="../assets/delete_country.png" alt="Delete Country" />
+            <p class="pt-4">
+              ¿Seguro que deseas eliminar el país seleccionado?
+            </p>
+          </div>
+          <div class="modal-footer border-top-0 justify-content-around">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg modal-button"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger btn-lg modal-button delete"
+              data-dismiss="modal"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END Delete Country Modal -->
+
+    <!-- Delete City Modal -->
+
+    <div class="modal fade" id="deleteCityModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+          <div class="modal-body text-center mt-1">
+            <img src="../assets/delete_city.png" alt="Delete Country" />
+            <p class="pt-4">
+              ¿Seguro que deseas eliminar la ciudad seleccionada?
+            </p>
+          </div>
+          <div class="modal-footer border-top-0 justify-content-around">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg modal-button"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger btn-lg modal-button delete"
+              data-dismiss="modal"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END Delete City Modal -->
+
+    <!-- NEW Region Modal -->
+
+    <div class="modal fade" id="newRegionModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header bg-secondary new-contact-modal-header">
+            <h1 class="title m-0 text-white">Nueva Región</h1>
+            <button type="button" class="close text-white" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="new-region-form">
+              <div
+                class="
+                  form-group form-row
+                  border
+                  py-4
+                  px-2
+                  borders-new-user-modal
+                  bg-white
+                "
+              >
+                <div class="col- position-relative ml-2 mr-3">
+                  <img
+                    src="../assets/region.png"
+                    alt="Agregar Imagen"
+                    class="imgBtnAddPic__userImg"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="newRegionName"
+                    class="col-form-label col-form-label-sm"
+                    >Región<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="newRegionName"
+                    name="newRegionName"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group form-row mt-4 mb-0">
+                <label class="col-form-label col-form-label-sm"
+                  ><span class="text-danger">*</span>Información
+                  requerida</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-top-0">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg modal-button border-0"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary btn-lg modal-button create"
+              id="createRegionBtn"
+              data-dismiss="modal"
+            >
+              Guardar Región
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END New Región Modal -->
+
+    <!-- NEW Country Modal -->
+
+    <div class="modal fade" id="newCountryModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header bg-secondary new-contact-modal-header">
+            <h1 class="title m-0 text-white">Nuevo País</h1>
+            <button type="button" class="close text-white" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="new-country-form">
+              <div
+                class="
+                  form-group form-row
+                  border
+                  py-4
+                  px-2
+                  borders-new-user-modal
+                  bg-white
+                "
+              >
+                <div class="col- position-relative ml-2 mr-3">
+                  <img
+                    src="../assets/country.png"
+                    alt="Agregar Imagen"
+                    class="imgBtnAddPic__userImg"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="selectNewRegionCountry"
+                    class="col-form-label col-form-label-sm"
+                    >Región<span class="text-danger">*</span></label
+                  >
+                  <select
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="selectNewRegionCountry"
+                    name="selectNewRegionCountry"
+                  >
+                    <option selected disabled value="0">
+                      Seleccionar Región
+                    </option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label
+                    for="newCountryName"
+                    class="col-form-label col-form-label-sm"
+                    >País<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="newCountryName"
+                    name="newCountryName"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group form-row mt-4 mb-0">
+                <label class="col-form-label col-form-label-sm"
+                  ><span class="text-danger">*</span>Información
+                  requerida</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-top-0">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg modal-button border-0"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary btn-lg modal-button create"
+              id="createCountryBtn"
+              data-dismiss="modal"
+            >
+              Guardar País
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END New Country Modal -->
+
+    <!-- NEW City Modal -->
+
+    <div class="modal fade" id="newCityModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header bg-secondary new-contact-modal-header">
+            <h1 class="title m-0 text-white">Nuevo País</h1>
+            <button type="button" class="close text-white" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="newCityForm">
+              <div
+                class="
+                  form-group form-row
+                  border
+                  py-4
+                  px-2
+                  borders-new-user-modal
+                  bg-white
+                "
+              >
+                <div class="col- position-relative ml-2 mr-3">
+                  <img
+                    src="../assets/city.png"
+                    alt="City Image"
+                    class="imgBtnAddPic__userImg"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="selectNewRegionCity"
+                    class="col-form-label col-form-label-sm"
+                    >Región<span class="text-danger">*</span></label
+                  >
+                  <select
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="selectNewRegionCity"
+                    name="selectNewRegionCity"
+                  >
+                    <option selected disabled value="0">
+                      Seleccionar Región
+                    </option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label
+                    for="selectNewCountryCity"
+                    class="col-form-label col-form-label-sm"
+                    >País<span class="text-danger">*</span></label
+                  >
+                  <select
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="selectNewCountryCity"
+                    name="selectNewCountryCity"
+                  >
+                    <option selected disabled value="0">
+                      Seleccionar País
+                    </option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label
+                    for="newCityName"
+                    class="col-form-label col-form-label-sm"
+                    >País<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="newCityName"
+                    name="newCityName"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group form-row mt-4 mb-0">
+                <label class="col-form-label col-form-label-sm"
+                  ><span class="text-danger">*</span>Información
+                  requerida</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-top-0">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg modal-button border-0"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary btn-lg modal-button create"
+              id="createCityBtn"
+              data-dismiss="modal"
+            >
+              Guardar Ciudad
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END New Country Modal -->
+
+    <!-- Modify Region Modal -->
+
+    <div class="modal fade" id="editRegionModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header bg-secondary new-contact-modal-header">
+            <h1 class="title m-0 text-white">Actualizar Región</h1>
+            <button type="button" class="close text-white" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="editRegionForm">
+              <div
+                class="
+                  form-group form-row
+                  border
+                  py-4
+                  px-2
+                  borders-new-user-modal
+                  bg-white
+                "
+              >
+                <div class="col- position-relative ml-2 mr-3">
+                  <img
+                    src="../assets/region.png"
+                    alt="Region Image"
+                    class="imgBtnAddPic__userImg"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="editRegionName"
+                    class="col-form-label col-form-label-sm"
+                    >Región<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="editRegionName"
+                    name="editRegionName"
+                  />
+                </div>
+              </div>
+              <div class="form-group form-row mt-4 mb-0">
+                <label class="col-form-label col-form-label-sm"
+                  ><span class="text-danger">*</span>Información
+                  requerida</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-top-0">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg modal-button border-0"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary btn-lg modal-button create"
+              data-dismiss="modal"
+            >
+              Guardar Región
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END Modify Region Modal -->
+
+    <!-- Modify Country Modal -->
+
+    <div class="modal fade" id="editCountryModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header bg-secondary new-contact-modal-header">
+            <h1 class="title m-0 text-white">Actualizar País</h1>
+            <button type="button" class="close text-white" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="editCountryForm">
+              <div
+                class="
+                  form-group form-row
+                  border
+                  py-4
+                  px-2
+                  borders-new-user-modal
+                  bg-white
+                "
+              >
+                <div class="col- position-relative ml-2 mr-3">
+                  <img
+                    src="../assets/country.png"
+                    alt="Country Image"
+                    class="imgBtnAddPic__userImg"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="editRegionCountry"
+                    class="col-form-label col-form-label-sm"
+                    >País<span class="text-danger">*</span></label
+                  >
+                  <select
+                    type="text"
+                    disabled
+                    class="form-control form-control-sm"
+                    id="editRegionCountry"
+                    name="editRegionCountry"
+                  >
+                    <option selected disabled>Seleccionar Región</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label
+                    for="editCountryName"
+                    class="col-form-label col-form-label-sm"
+                    >País<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="editCountryName"
+                    name="editCountryName"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group form-row mt-4 mb-0">
+                <label class="col-form-label col-form-label-sm"
+                  ><span class="text-danger">*</span>Información
+                  requerida</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-top-0">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg modal-button border-0"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary btn-lg modal-button update-button"
+              data-dismiss="modal"
+            >
+              Actualizar País
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END Modify Country Modal -->
+
+    <!-- Modify City Modal -->
+
+    <div class="modal fade" id="editCityModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header bg-secondary new-contact-modal-header">
+            <h1 class="title m-0 text-white">Actualizar Ciudad</h1>
+            <button type="button" class="close text-white" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="editCityForm">
+              <div
+                class="
+                  form-group form-row
+                  border
+                  py-4
+                  px-2
+                  borders-new-user-modal
+                  bg-white
+                "
+              >
+                <div class="col- position-relative ml-2 mr-3">
+                  <img
+                    src="../assets/city.png"
+                    alt="City Image"
+                    class="imgBtnAddPic__userImg"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="editRegionCity"
+                    class="col-form-label col-form-label-sm"
+                    >Región<span class="text-danger">*</span></label
+                  >
+                  <select
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="editRegionCity"
+                    name="editRegionCity"
+                  >
+                    <option selected disabled>Seleccionar Región</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label
+                    for="editCountryCity"
+                    class="col-form-label col-form-label-sm"
+                    >País<span class="text-danger">*</span></label
+                  >
+                  <select
+                    type="text"
+                    disabled
+                    class="form-control form-control-sm"
+                    id="editCountryCity"
+                    name="editCountryCity"
+                  >
+                    <option selected disabled>Seleccionar País</option>
+                  </select>
+                </div>
+
+                <div class="col">
+                  <label
+                    for="editCityName"
+                    class="col-form-label col-form-label-sm"
+                    >Ciudad<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="editCityName"
+                    name="editCityName"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group form-row mt-4 mb-0">
+                <label class="col-form-label col-form-label-sm"
+                  ><span class="text-danger">*</span>Información
+                  requerida</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-top-0">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg modal-button border-0"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary btn-lg modal-button update-button"
+              data-dismiss="modal"
+            >
+              Actualizar Ciudad
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END Modify City Modal -->
+
+    <div class="error-msg"></div>
+
+    <!-- Scripts -->
+
+    <!-- jQuery, Popper and Bootstrap JS -->
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+      integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script
+      src="https://kit.fontawesome.com/7396023e43.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script type="module" src="../scripts/mytree.js"></script>
+
+    <!-- END Scripts -->
+  </body>
+</html>

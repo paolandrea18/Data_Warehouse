@@ -1,0 +1,67 @@
+ul,
+#myUL {
+  list-style-type: none;
+}
+
+#myUL {
+  margin: 0;
+  padding: 0;
+}
+
+.caret {
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari 3.1+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none;
+}
+
+.caret::before {
+  content: "\25B6";
+  color: #5e2129;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.caret-down::before {
+  transform: rotate(90deg);
+}
+
+.nested {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+.treeFont {
+  font: $Font;
+}
+
+.treeColor {
+  color: #5e2129;
+  font-size: small;
+}
+
+.buttonTreeAdd {
+  color: $white;
+  font-size: small;
+  background-color: #6c757d;
+}
+
+.buttonTreeAdd:hover {
+  color: $white;
+  font-size: small;
+  background-color: $secondary;
+}
+
+.buttonTreeAdd:active {
+  color: $white;
+  font-size: small;
+  background-color: $secondary;
+}
+
+.newChanelBtn {
+  margin-top: 26px;
+}

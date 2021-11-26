@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      sizes="32x32"
+      href="../assets/logo_icon.png"
+      type="image/svg+xml"
+    />
+    <!-- Styles -->
+    <link rel="stylesheet" href="../styles/normalize.css" />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <!-- Font Awesome CSS -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../styles/styles.css" />
+    <!-- END Styles -->
+    <title>U.S.S. CO Information - DWA</title>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary py-0">
+      <a class="navbar-brand" href="#">
+        <img
+          class="ml-4"
+          src="../assets/logo.png"
+          width="100"
+          height="100"
+          alt="Data Warehouse Logo"
+          loading="lazy"
+        />
+      </a>
+      <div
+        class="collapse navbar-collapse justify-content-end"
+        id="navbarNavAltMarkup"
+      >
+        <div class="navbar-nav">
+          <a class="nav-link mx-1" href="../index.html">Contactos</a>
+          <a class="nav-link mx-1 active" href="#"
+            >Compañías<span class="sr-only">(current)</span></a
+          >
+          <a
+            class="nav-link mx-1 d-none users-tab"
+            href="./user.html"
+            id="navLinkUsers"
+            >Usuarios</a
+          >
+          <a class="nav-link mx-1" href="./region_city.html">Región / Ciudad</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="main mx-4">
+      <section>
+        <h1 class="title mt-5 mb-3">Compañías</h1>
+
+        <!-- Search Bar -->
+
+        <div class="d-flex flex-row justify-content-between">
+          <!-- New Company Button -->
+          <div class="col">
+            <button
+              type="button"
+              class="btn btn-secondary btn-size float-right"
+              data-toggle="modal"
+              data-target="#newCompanyModal"
+              id="addCompanyBtn"
+            >
+              Agregar Compañía
+            </button>
+          </div>
+          <!-- END New Company Button -->
+        </div>
+
+        <!-- END Search Bar -->
+
+        <div
+          class="
+            selected-contacts
+            d-flex
+            justify-content-between
+            align-items-center
+            mt-4
+            mb-1
+          "
+        >
+          <button
+            type="button"
+            class="btn btn-xsm btn-tag disable contacts-selected d-none"
+          ></button>
+          <button
+            type="button"
+            class="
+              btn btn-outline-secondary btn-size
+              border-0
+              delete-contacts
+              d-none
+            "
+            data-toggle="modal"
+            data-target="#deleteUserModal"
+          >
+            <i class="fa fa-trash" aria-hidden="true"></i> Eliminar Compañía
+          </button>
+        </div>
+
+        <!-- Companies Grid -->
+
+        <table
+          class="
+            table
+            table-borderless
+            table-bordered
+            table-responsive-lg
+            table-hover
+          "
+        >
+          <thead>
+            <tr class="table-bordered">
+              <th class="align-middle" scope="col">Compañía</th>
+              <th class="align-middle" scope="col">Dirección</th>
+              <th class="align-middle" scope="col">Email</th>
+              <th class="align-middle" scope="col">Teléfono</th>
+              <th class="align-middle" scope="col">Ciudad</th>
+              <th class="align-middle text-center" scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody class="companiesBodyTable" id="companiesBodyTable"></tbody>
+        </table>
+
+        <!-- END Companies Grid -->
+      </section>
+    </main>
+
+    <!-- Delete Company Modal -->
+
+    <div class="modal fade" id="deleteCompanyModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+          <div class="modal-body text-center mt-1">
+            <img
+              height="120"
+              width="120"
+              src="../assets/delete_bussiness.png"
+              alt="Delete Company"
+            />
+            <p class="pt-4">
+              ¿Seguro que desea eliminar la compañía seleccionada?
+            </p>
+          </div>
+          <div class="modal-footer border-top-0 justify-content-around">
+            <input type="hidden" id="deleteCompanyID" name="deleteCompanyID" />
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg modal-button"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger btn-lg modal-button delete"
+              data-dismiss="modal"
+              id="deleteCompanyModalBtn"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END Delete Company Modal -->
+
+    <!-- NEW Company Modal -->
+
+    <div class="modal fade" id="newCompanyModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header bg-secondary new-contact-modal-header">
+            <h1 class="title m-0 text-white">Nueva Compañía</h1>
+            <button type="button" class="close text-white" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="newCompanyForm">
+              <div
+                class="
+                  form-group form-row
+                  border
+                  py-4
+                  px-2
+                  borders-new-user-modal
+                  bg-white
+                "
+              >
+                <div class="col- position-relative ml-2 mr-3">
+                  <img
+                    src="../assets/bussiness.png"
+                    alt="Company Image"
+                    class="imgBtnAddPic__userImg"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="newCompanyName"
+                    class="col-form-label col-form-label-sm"
+                    >Nombre<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="newCompanyName"
+                    name="newCompanyName"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="newCompanyAddress"
+                    class="col-form-label col-form-label-sm"
+                    >Dirección<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="newCompanyAddress"
+                    name="newCompanyAddress"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="newCompanyEmail"
+                    class="col-form-label col-form-label-sm"
+                    >Email<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="email"
+                    class="form-control form-control-sm"
+                    id="newCompanyEmail"
+                    name="newCompanyEmail"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="newCompanyPhone"
+                    class="col-form-label col-form-label-sm"
+                    >Teléfono<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="number"
+                    class="form-control form-control-sm"
+                    id="newCompanyPhone"
+                    name="newCompanyPhone"
+                  />
+                </div>
+              </div>
+              <div class="form-group form-row">
+                <div class="col">
+                  <label
+                    for="newCompany_regionSelectID"
+                    class="col-form-label col-form-label-sm"
+                    >Región<span class="text-danger">*</span></label
+                  >
+                  <input type="hidden" id="newCompany_regionID" />
+                  <select
+                    class="form-control form-control-sm"
+                    name="newCompany_regionSelectID"
+                    id="newCompany_regionSelectID"
+                  >
+                    <!--   <option selected disabled value="0">Seleccionar región</option> -->
+                  </select>
+                </div>
+                <div class="col">
+                  <label
+                    for="newCompany_countrySelectID"
+                    class="col-form-label col-form-label-sm"
+                    >País<span class="text-danger">*</span></label
+                  >
+                  <input type="hidden" id="newCompany_CountryID" />
+                  <select
+                    class="form-control form-control-sm"
+                    name="newCompany_countrySelectID"
+                    id="newCompany_countrySelectID"
+                  >
+                    <!--  <option selected  disabled value="0">Seleccionar país</option> -->
+                  </select>
+                </div>
+                <div class="col">
+                  <label for="city" class="col-form-label col-form-label-sm"
+                    >Ciudad<span class="text-danger">*</span></label
+                  >
+                  <input type="hidden" id="newCompany_CityID" />
+                  <select
+                    class="form-control form-control-sm"
+                    name="newCompany_citySelectID"
+                    id="newCompany_citySelectID"
+                  >
+                    <!-- <option selected disabled value="0">Seleccionar ciudad</option> --->
+                  </select>
+                </div>
+              </div>
+              <div class="form-group form-row mt-4 mb-0">
+                <label class="col-form-label col-form-label-sm"
+                  ><span class="text-danger">*</span>Información
+                  requerida</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-top-0">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg modal-button border-0"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary btn-lg modal-button create"
+              id="saveCompanyModalBtn"
+            >
+              Guardar Compañía
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END New Company Modal -->
+
+    <!-- Modify Company Modal -->
+
+    <div class="modal fade" id="editCompanyModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header bg-secondary new-contact-modal-header">
+            <h1 class="title m-0 text-white">Actualizar Companía</h1>
+            <button type="button" class="close text-white" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="editContactForm">
+              <div
+                class="
+                  form-group form-row
+                  border
+                  py-4
+                  px-2
+                  borders-new-user-modal
+                  bg-white
+                "
+              >
+                <div class="col- position-relative ml-2 mr-3">
+                  <button class="imgBtnAddPic">
+                    <img
+                      src="../assets/bussiness.png"
+                      alt="Company Image"
+                      class="imgBtnAddPic__userImg"
+                    />
+                  </button>
+                </div>
+                <div class="col">
+                  <input
+                    type="hidden"
+                    id="editCompanyID"
+                    name="editCompanyID"
+                  />
+                  <label
+                    for="editCompanyName"
+                    class="col-form-label col-form-label-sm"
+                    >Nombre<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="editCompanyName"
+                    name="editCompanyName"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="editCompanyAddress"
+                    class="col-form-label col-form-label-sm"
+                    >Dirección<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="editCompanyAddress"
+                    name="editCompanyAddress"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="editCompanyEmail"
+                    class="col-form-label col-form-label-sm"
+                    >Email<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="email"
+                    class="form-control form-control-sm"
+                    id="editCompanyEmail"
+                    name="editCompanyEmail"
+                  />
+                </div>
+                <div class="col">
+                  <label
+                    for="editCompanyPhone"
+                    class="col-form-label col-form-label-sm"
+                    >Teléfono<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="number"
+                    class="form-control form-control-sm"
+                    id="editCompanyPhone"
+                    name="editCompanyPhone"
+                  />
+                </div>
+              </div>
+              <div class="form-group form-row">
+                <div class="col">
+                  <label
+                    for="editCompany_regionSelectID"
+                    class="col-form-label col-form-label-sm"
+                    >Región<span class="text-danger">*</span></label
+                  >
+                  <input type="hidden" id="editCompany_regionID" />
+                  <select
+                    class="form-control form-control-sm"
+                    name="editCompany_regionSelectID"
+                    id="editCompany_regionSelectID"
+                  >
+                    <option selected disabled value="0">
+                      Seleccionar región
+                    </option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label
+                    for="editCompany_countrySelectID"
+                    class="col-form-label col-form-label-sm"
+                    >País<span class="text-danger">*</span></label
+                  >
+                  <input type="hidden" id="editCompany_countryID" />
+                  <select
+                    class="form-control form-control-sm"
+                    name="editCompany_countrySelectID"
+                    id="editCompany_countrySelectID"
+                  >
+                    <!-- <option selected  disabled value="0">Seleccionar país</option> -->
+                  </select>
+                </div>
+                <div class="col">
+                  <label
+                    for="editCompany_citySelectID"
+                    class="col-form-label col-form-label-sm"
+                    >Ciudad<span class="text-danger">*</span></label
+                  >
+                  <input type="hidden" id="editCompany_cityID" />
+                  <select
+                    class="form-control form-control-sm"
+                    name="editCompany_citySelectID"
+                    id="editCompany_citySelectID"
+                  >
+                    <!-- <option selected disabled value="0">Seleccionar ciudad</option> -->
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group form-row mt-4 mb-0">
+                <label class="col-form-label col-form-label-sm"
+                  ><span class="text-danger">*</span>Información
+                  requerida</label
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer border-top-0">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg modal-button border-0"
+              data-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary btn-lg modal-button update-button"
+              id="editCompanyModalBtn"
+            >
+              Actualizar compañía
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END Modify Company Modal -->
+
+    <div class="error-msg"></div>
+
+    <!-- Scripts -->
+    <!-- jQuery, Popper and Bootstrap JS -->
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+      integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- END jQuery, Popper and Bootstrap JS -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+    <script
+      src="https://kit.fontawesome.com/7396023e43.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script type="module" src="../scripts/main_controllerCompanies.js"></script>
+
+    <!-- END Scripts -->
+  </body>
+</html>

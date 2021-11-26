@@ -1,0 +1,35 @@
+{
+  "name": "data_warehouse_be",
+  "version": "1.0.0",
+  "description": "Acámica - Data Warehouse Final Project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devStart": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paolandrea18/Data_Warehouse"
+  },
+  "keywords": [],
+  "author": "Paola Andrea Cadena Joya",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-json-validator-middleware": "^2.1.1",
+    "helmet": "^4.4.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.11.0",
+    "sweetalert": "^2.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "prettier": "2.2.1",
+    "sequelize-cli": "^6.3.0"
+  }
+}
